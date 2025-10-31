@@ -11,112 +11,36 @@
   let displayText = $state('');
   let isClosing = $state(false);
 
-  const pageContent: Record<string, { path: string; content: string }> = {
+  const postModules = import.meta.glob('$lib/posts/*.md', { eager: true });
+
+  const components = {
+    about: (postModules['/src/lib/posts/about.md'] as any).default,
+    projects: (postModules['/src/lib/posts/projects.md'] as any).default,
+    skills: (postModules['/src/lib/posts/skills.md'] as any).default,
+    contact: (postModules['/src/lib/posts/contact.md'] as any).default,
+    blog: (postModules['/src/lib/posts/blog.md'] as any).default,
+  };
+
+  const pageContent: Record<string, { path: string; component: any }> = {
     about: {
       path: '~/portfolio/about',
-      content: `
-        <h1 class="text-4xl font-bold mb-6 text-tokyo-night-cyan">About Me</h1>
-        <p class="text-lg leading-relaxed mb-4 text-tokyo-night-fg">
-          Welcome to my digital space. I'm a passionate developer who loves creating beautiful and functional web
-          experiences.
-        </p>
-        <blockquote class="border-l-4 border-tokyo-night-cyan pl-4 italic text-tokyo-night-cyan my-6">
-          "Code is like humor. When you have to explain it, it's bad." - Cory House
-        </blockquote>
-        <p class="text-lg leading-relaxed text-tokyo-night-fg">
-          With years of experience in modern web technologies, I specialize in building responsive, accessible, and
-          performant applications.
-        </p>
-      `,
+      component: components.about,
     },
     projects: {
       path: '~/portfolio/projects',
-      content: `
-        <h1 class="text-4xl font-bold mb-6 text-tokyo-night-orange">Projects</h1>
-        <div class="space-y-6">
-          <div class="border border-tokyo-night-terminal-black rounded-lg p-6 bg-tokyo-night-cyan/20">
-            <h2 class="text-2xl font-semibold mb-2 text-tokyo-night-cyan">Project Alpha</h2>
-            <p class="text-tokyo-night-fg-dark mb-3">A revolutionary web application built with Next.js and React</p>
-            <div class="flex gap-2">
-              <span class="px-3 py-1 bg-tokyo-night-cyan/20 text-tokyo-night-cyan rounded-full text-sm">Next.js</span>
-              <span class="px-3 py-1 bg-tokyo-night-purple/20 text-tokyo-night-purple rounded-full text-sm">TypeScript</span>
-            </div>
-          </div>
-          <div class="border border-tokyo-night-terminal-black rounded-lg p-6 bg-tokyo-night-cyan/20">
-            <h2 class="text-2xl font-semibold mb-2 text-tokyo-night-orange">Project Beta</h2>
-            <p class="text-tokyo-night-fg-dark mb-3">An innovative mobile-first design system</p>
-            <div class="flex gap-2">
-              <span class="px-3 py-1 bg-tokyo-night-green/20 text-tokyo-night-green rounded-full text-sm">React</span>
-              <span class="px-3 py-1 bg-tokyo-night-blue/20 text-tokyo-night-blue rounded-full text-sm">Tailwind</span>
-            </div>
-          </div>
-        </div>
-      `,
+      component: components.projects,
     },
     skills: {
       path: '~/portfolio/skills',
-      content: `
-        <h1 class="text-4xl font-bold mb-6 text-tokyo-night-purple">Technical Skills</h1>
-        <div class="grid grid-cols-2 gap-4">
-          <div class="border border-tokyo-night-terminal-black rounded-lg p-4 bg-tokyo-night-cyan/20">
-            <h3 class="text-xl font-semibold mb-3 text-tokyo-night-cyan">Frontend</h3>
-            <ul class="space-y-2 text-tokyo-night-fg-dark">
-              <li>• React & Next.js</li>
-              <li>• TypeScript</li>
-              <li>• Tailwind CSS</li>
-            </ul>
-          </div>
-          <div class="border border-tokyo-night-terminal-black rounded-lg p-4 bg-tokyo-night-cyan/20">
-            <h3 class="text-xl font-semibold mb-3 text-tokyo-night-orange">Backend</h3>
-            <ul class="space-y-2 text-tokyo-night-fg-dark">
-              <li>• Node.js</li>
-              <li>• PostgreSQL</li>
-              <li>• REST APIs</li>
-            </ul>
-          </div>
-        </div>
-      `,
+      component: components.skills,
     },
     contact: {
       path: '~/portfolio/contact',
-      content: `
-        <h1 class="text-4xl font-bold mb-6 text-tokyo-night-magenta">Get In Touch</h1>
-        <p class="text-lg leading-relaxed mb-6 text-tokyo-night-fg">
-          I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions.
-        </p>
-        <div class="space-y-4">
-          <div class="border border-tokyo-night-terminal-black rounded-lg p-4 bg-tokyo-night-cyan/20">
-            <h3 class="text-lg font-semibold text-tokyo-night-cyan mb-2">Email</h3>
-            <p class="text-tokyo-night-fg-dark">hello@example.com</p>
-          </div>
-          <div class="border border-tokyo-night-terminal-black rounded-lg p-4 bg-tokyo-night-cyan/20">
-            <h3 class="text-lg font-semibold text-tokyo-night-orange mb-2">Location</h3>
-            <p class="text-tokyo-night-fg-dark">San Francisco, CA</p>
-          </div>
-        </div>
-      `,
+      component: components.contact,
     },
     blog: {
       path: '~/portfolio/blog',
-      content: `
-        <h1 class="text-4xl font-bold mb-6 text-tokyo-night-blue">Latest Posts</h1>
-        <article class="mb-8">
-          <h2 class="text-2xl font-semibold mb-2 text-tokyo-night-cyan">Building Modern Web Apps</h2>
-          <p class="text-sm text-tokyo-night-fg-dark mb-3">Posted on March 15, 2024</p>
-          <p class="leading-relaxed text-tokyo-night-fg">
-            Exploring the latest trends in web development and how to leverage modern frameworks for better user
-            experiences...
-          </p>
-        </article>
-        <article>
-          <h2 class="text-2xl font-semibold mb-2 text-tokyo-night-orange">The Art of Clean Code</h2>
-          <p class="text-sm text-tokyo-night-fg-dark mb-3">Posted on March 10, 2024</p>
-          <p class="leading-relaxed text-tokyo-night-fg">
-            Writing maintainable code is an art form. Here are some principles I follow to keep my codebase clean and
-            scalable...
-          </p>
-        </article>
-      `,
+      component: components.blog,
     },
   };
 
@@ -182,9 +106,27 @@
     </div>
 
     <div class="flex-1 overflow-auto p-8 font-sans animate-in fade-in duration-500">
-      <div class="prose prose-invert max-w-none">
-        {@html content().content}
-      </div>
-    </div>
+       <div class="prose prose-invert max-w-none">
+         {#if currentPage === 'about'}
+           {@const Component = components.about}
+           <Component />
+         {:else if currentPage === 'projects'}
+           {@const Component = components.projects}
+           <Component />
+         {:else if currentPage === 'skills'}
+           {@const Component = components.skills}
+           <Component />
+         {:else if currentPage === 'contact'}
+           {@const Component = components.contact}
+           <Component />
+         {:else if currentPage === 'blog'}
+           {@const Component = components.blog}
+           <Component />
+         {:else}
+           {@const Component = components.about}
+           <Component />
+         {/if}
+       </div>
+     </div>
   </div>
 </div>
