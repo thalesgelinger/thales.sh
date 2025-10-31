@@ -17,7 +17,7 @@ export default function Page() {
   const dragStartPos = useRef({ x: 0, y: 0, deviceX: 0, deviceY: 0 })
 
   const handleMouseDown = (e: React.MouseEvent) => {
-    if (window.innerWidth < 768) return // Only on desktop
+    if (typeof window !== 'undefined' && window.innerWidth < 768) return // Only on desktop
     setIsDragging(true)
     dragStartPos.current = {
       x: e.clientX,
@@ -76,7 +76,7 @@ export default function Page() {
         className="relative w-full h-screen md:h-auto md:max-w-[400px] md:aspect-[9/19.5] bg-card md:rounded-[3rem] md:shadow-2xl overflow-hidden md:border-8 md:border-secondary z-10"
         style={{
           transform: `translate(${position.x}px, ${position.y}px)`,
-          cursor: isDragging ? "grabbing" : window.innerWidth >= 768 ? "grab" : "default",
+          cursor: isDragging ? "grabbing" : (typeof window !== 'undefined' && window.innerWidth >= 768) ? "grab" : "default",
           transition: isDragging ? "none" : "transform 0.2s ease-out",
         }}
         onMouseDown={handleMouseDown}
