@@ -89,44 +89,13 @@
     </div>
 
     <!-- Profile Section -->
-    <div class="flex flex-col items-center space-y-6 -mt-12">
-      <div class="w-32 h-32 border-4 border-primary shadow-lg rounded-full bg-primary text-primary-foreground flex items-center justify-center text-4xl">
-        JD
-      </div>
+    <div class="flex flex-col items-center space-y-4 -mt-12">
+      <img src="/me.jpeg" alt="Thales Gelinger" class="w-24 h-24 rounded-full border-4 border-primary shadow-lg" />
 
       <div class="text-center space-y-2">
-        <h2 class="text-2xl font-semibold text-foreground">John Developer</h2>
         <p class="text-sm text-muted-foreground max-w-xs text-balance">
-          Full-stack developer passionate about creating beautiful and functional web experiences
+          I like when machines make what i want
         </p>
-      </div>
-
-      <!-- Social Links -->
-      <div class="flex gap-4">
-        <a
-          href="https://github.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="w-12 h-12 rounded-full bg-card border border-primary/30 hover:bg-primary hover:border-primary transition-all flex items-center justify-center"
-        >
-          <Github class="w-5 h-5" />
-        </a>
-        <a
-          href="https://linkedin.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="w-12 h-12 rounded-full bg-card border border-primary/30 hover:bg-primary hover:border-primary transition-all flex items-center justify-center"
-        >
-          <Linkedin class="w-5 h-5" />
-        </a>
-        <a
-          href="https://twitter.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="w-12 h-12 rounded-full bg-card border border-primary/30 hover:bg-primary hover:border-primary transition-all flex items-center justify-center"
-        >
-          <Twitter class="w-5 h-5" />
-        </a>
       </div>
     </div>
 
