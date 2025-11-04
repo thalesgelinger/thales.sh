@@ -36,13 +36,3 @@
         </TerminalContent>
     </div>
 {/if}
-
-{#if !phoneStore.hasBeenDragged}
-    <div
-        class="hidden md:block fixed top-8 left-1/2 -translate-x-1/2 z-50 bg-card/90 backdrop-blur-xl px-6 py-3 rounded-full border border-border shadow-lg animate-bounce"
-    >
-        <p class="text-sm font-medium text-foreground">
-            Drag the device to unlock
-        </p>
-    </div>
-{/if}
