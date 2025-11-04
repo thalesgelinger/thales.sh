@@ -1,5 +1,17 @@
 
+type AppIcons = "file-text"
 
-export const phoneStore = $state({
-    hasBeenDragged: false
+type PhoneStore = {
+    hasBeenDragged: boolean,
+    apps: Array<{
+        title: string,
+        slug: string,
+        icon: AppIcons,
+        color: string
+    }>
+}
+
+export const phoneStore = $state<PhoneStore>({
+    hasBeenDragged: false,
+    apps: []
 })

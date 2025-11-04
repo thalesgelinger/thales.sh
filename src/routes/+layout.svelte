@@ -27,6 +27,7 @@
 
     $effect(() => {
         console.log({ data });
+        phoneStore.apps = data.posts;
 
         if (!isDragging) return;
 

@@ -5,16 +5,14 @@
     interface Props {
         children: Snippet;
         isMobile?: boolean;
+        title: string;
     }
 
-    let { children, isMobile = false }: Props = $props();
+    let { children, title }: Props = $props();
 
-    let displayText = $state("");
     let isClosing = $state(false);
 
-    $effect(() => {
-        displayText = "/home";
-    });
+    let isMobile = false;
 
     function handleClose() {
         if (isMobile) {
@@ -70,7 +68,7 @@
                 class="flex-1 text-center font-mono text-sm text-tokyo-night-fg"
             >
                 <span class="text-primary">➜</span>
-                <span class="text-primary">{displayText}</span>
+                <span class="text-primary">{title}</span>
                 <span class="animate-pulse">▊</span>
             </div>
         </div>

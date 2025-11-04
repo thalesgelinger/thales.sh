@@ -1,8 +1,8 @@
-import type { PageLoad } from "./$types"
+import type { PageLoad } from "../[slug]/$typesd]/$types"
 
 export const load: PageLoad = async ({ params }) => {
 
-    const blog = await import(`../../../posts/${params.slug}.md`)
+    const blog = await import(`$lib/posts/${params.slug}.md`)
 
     return {
         title: blog.metadata.title,

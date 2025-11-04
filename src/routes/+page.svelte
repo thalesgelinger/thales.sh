@@ -5,7 +5,7 @@
 
 {#if phoneStore.hasBeenDragged}
     <div class="hidden md:block fixed inset-0 z-0">
-        <TerminalContent isMobile={false}>
+        <TerminalContent title="/home">
             <div class="flex gap-9">
                 <img
                     src="/me.jpeg"
