@@ -10,7 +10,7 @@ export default $config({
     };
   },
   async run() {
-    const worker = new sst.cloudflare.Worker("GelingerDev", {
+    const worker = new sst.cloudflare.Worker("ThalesSH", {
         handler: ".svelte-kit/cloudflare/_worker.js",
         assets: {
             directory: ".svelte-kit/cloudflare",

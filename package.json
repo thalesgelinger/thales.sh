@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "mdsvex": "^0.12.6",
-    "sst": "3.17.21",
+    "sst": "^3.17.21",
     "svelte-kit-sst": "2.43.5",
     "tw-animate-css": "^1.4.0"
   }
