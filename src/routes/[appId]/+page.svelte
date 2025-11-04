@@ -1,8 +1,6 @@
 <script lang="ts">
-  import { page } from '$app/stores';
-  import TerminalContent from '$lib/components/TerminalContent.svelte';
-
-  let appId = $derived($page.params.appId as string);
+    import TerminalContent from "$lib/components/TerminalContent.svelte";
 </script>
 
-<TerminalContent currentPage={appId} isMobile={true} />
+<TerminalContent isMobile={true}>Bla bla bla</TerminalContent>
+
