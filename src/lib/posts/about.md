@@ -1,6 +1,6 @@
 ---
 title: "About me"
-color: "bg-primary"
+color: "bg-secondary"
 icon: "user"
 ---
 I’m Thales Gelinger a 25 years old developer from Brazil, i’m currently working as a **Lead**

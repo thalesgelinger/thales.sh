@@ -1,5 +1,5 @@
 
-type AppIcons = "file-text"
+type AppIcons = "file-text" | "user" | "home"
 
 type PhoneStore = {
     hasBeenDragged: boolean,
@@ -13,5 +13,12 @@ type PhoneStore = {
 
 export const phoneStore = $state<PhoneStore>({
     hasBeenDragged: false,
-    apps: []
+    apps: [
+        {
+            title: "Home",
+            slug: "",
+            icon: "home",
+            color: "bg-primary"
+        }
+    ]
 })

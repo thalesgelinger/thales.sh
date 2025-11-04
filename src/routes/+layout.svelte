@@ -4,6 +4,7 @@
     import LockScreen from "$lib/components/LockScreen.svelte";
     import HomeScreen from "$lib/components/HomeScreen.svelte";
     import { phoneStore } from "./phone.svelte";
+    import { onMount } from "svelte";
 
     let { children, data } = $props();
     let isUnlocked = $state(false);
@@ -25,10 +26,13 @@
         };
     }
 
-    $effect(() => {
-        console.log({ data });
-        phoneStore.apps = data.posts;
+    onMount(() => {
+        data.posts.forEach((post) => {
+            phoneStore.apps.push(post);
+        });
+    });
 
+    $effect(() => {
         if (!isDragging) return;
 
         const handleMouseMove = (e: MouseEvent) => {

@@ -12,7 +12,10 @@
 
     let isClosing = $state(false);
 
-    let isMobile = false;
+    let isMobile = $state(false);
+    $effect(() => {
+        isMobile = window.matchMedia("(max-width: 768px)").matches;
+    });
 
     function handleClose() {
         if (isMobile) {
