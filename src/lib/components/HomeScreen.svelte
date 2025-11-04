@@ -29,6 +29,9 @@
     function handleAppClick(appId: string) {
         if (isMobile()) {
             viewOrchestrator.hideDevice = true;
+            if (appId === "") {
+                return;
+            }
         }
         goto(`/${appId}`);
     }

@@ -1,11 +1,18 @@
 <script lang="ts">
     import TerminalContent from "$lib/components/TerminalContent.svelte";
+    import { isMobile } from "$lib/utils";
     import { phoneStore } from "./phone.svelte";
+
+    $effect(() => {
+        if (isMobile()) {
+            phoneStore.hasBeenDragged = true;
+        }
+    });
 </script>
 
 {#if phoneStore.hasBeenDragged}
-    <div class="hidden md:block fixed inset-0 z-0">
-        <TerminalContent title="/home">
+    <div class="md:block fixed inset-0 z-0">
+        <TerminalContent title="/">
             <div class="flex gap-9">
                 <img
                     src="/me.jpeg"

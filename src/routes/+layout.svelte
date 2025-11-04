@@ -29,7 +29,6 @@
             phoneStore.apps.push(post);
         });
     });
-    $inspect(viewOrchestrator);
 
     $effect(() => {
         if (!isDragging) return;
