@@ -30,6 +30,7 @@
         if (isMobile()) {
             viewOrchestrator.hideDevice = true;
             if (appId === "") {
+                goto("/");
                 return;
             }
         }
@@ -99,4 +100,3 @@
         </div>
     </div>
 </div>
-
