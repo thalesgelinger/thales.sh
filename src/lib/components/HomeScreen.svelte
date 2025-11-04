@@ -1,28 +1,15 @@
 <script lang="ts">
     import { goto } from "$app/navigation";
-    import { phoneStore } from "../../routes/phone.svelte";
+    import { isMobile } from "$lib/utils";
+    import { phoneStore, viewOrchestrator } from "../../routes/phone.svelte";
     import AppIcon from "./AppIcon.svelte";
-    import {
-        User,
-        Briefcase,
-        Code,
-        Mail,
-        FileText,
-        Camera,
-        Music,
-        Settings,
-        MessageSquare,
-        Github,
-        Linkedin,
-        Twitter,
-    } from "lucide-svelte";
+    import { Github, Linkedin, Twitter } from "lucide-svelte";
 
     interface Props {
         isVisible: boolean;
-        onAppClick: (appId: string) => void;
     }
 
-    let { isVisible, onAppClick }: Props = $props();
+    let { isVisible }: Props = $props();
 
     let time = $state("");
 
@@ -40,6 +27,9 @@
     });
 
     function handleAppClick(appId: string) {
+        if (isMobile()) {
+            viewOrchestrator.hideDevice = true;
+        }
         goto(`/${appId}`);
     }
 </script>

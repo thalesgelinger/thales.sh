@@ -3,13 +3,11 @@
     import favicon from "$lib/assets/favicon.svg";
     import LockScreen from "$lib/components/LockScreen.svelte";
     import HomeScreen from "$lib/components/HomeScreen.svelte";
-    import { phoneStore } from "./phone.svelte";
+    import { phoneStore, viewOrchestrator } from "./phone.svelte";
     import { onMount } from "svelte";
 
     let { children, data } = $props();
-    let isUnlocked = $state(false);
     let isDragging = $state(false);
-    let currentPage = $state("about");
     let position = $state({ x: 0, y: 0 });
     let deviceRef: HTMLDivElement;
 
@@ -31,6 +29,7 @@
             phoneStore.apps.push(post);
         });
     });
+    $inspect(viewOrchestrator);
 
     $effect(() => {
         if (!isDragging) return;
@@ -48,7 +47,7 @@
                 !phoneStore.hasBeenDragged
             ) {
                 phoneStore.hasBeenDragged = true;
-                isUnlocked = true;
+                phoneStore.isUnlocked = true;
             }
         };
 
@@ -83,34 +82,33 @@
             </p>
         </div>
     {/if}
-    <!-- svelte-ignore a11y_no_static_element_interactions -->
-    <div
-        bind:this={deviceRef}
-        class="relative w-full h-screen md:h-auto md:max-w-[400px] md:aspect-[9/19.5] bg-card md:rounded-[3rem] md:shadow-2xl overflow-hidden md:border-8 md:border-tokyo-night-gray3 z-10"
-        style="transform: translate({position.x}px, {position.y}px); cursor: {isDragging
-            ? 'grabbing'
-            : typeof window !== 'undefined' && window.innerWidth >= 768
-              ? 'grab'
-              : 'default'}; transition: {isDragging
-            ? 'none'
-            : 'transform 0.2s ease-out'};"
-        onmousedown={handleMouseDown}
-    >
-        <!-- Notch -->
+    {#if !viewOrchestrator.hideDevice}
+        <!-- svelte-ignore a11y_no_static_element_interactions -->
         <div
-            class="hidden md:block absolute top-0 left-1/2 -translate-x-1/2 w-40 h-7 bg-background rounded-b-3xl z-50"
-        ></div>
+            bind:this={deviceRef}
+            class="relative w-full h-screen md:h-auto md:max-w-[400px] md:aspect-[9/19.5] bg-card md:rounded-[3rem] md:shadow-2xl overflow-hidden md:border-8 md:border-tokyo-night-gray3 z-10"
+            style="transform: translate({position.x}px, {position.y}px); cursor: {isDragging
+                ? 'grabbing'
+                : typeof window !== 'undefined' && window.innerWidth >= 768
+                  ? 'grab'
+                  : 'default'}; transition: {isDragging
+                ? 'none'
+                : 'transform 0.2s ease-out'};"
+            onmousedown={handleMouseDown}
+        >
+            <!-- Notch -->
+            <div
+                class="hidden md:block absolute top-0 left-1/2 -translate-x-1/2 w-40 h-7 bg-background rounded-b-3xl z-50"
+            ></div>
 
-        <!-- Screen Content -->
-        <div class="relative w-full h-full overflow-hidden">
-            <LockScreen
-                isVisible={!isUnlocked}
-                onUnlock={() => (isUnlocked = true)}
-            />
-            <HomeScreen
-                isVisible={isUnlocked}
-                onAppClick={(appId) => (currentPage = appId)}
-            />
+            <!-- Screen Content -->
+            <div class="relative w-full h-full overflow-hidden">
+                <LockScreen
+                    isVisible={!phoneStore.isUnlocked}
+                    onUnlock={() => (phoneStore.isUnlocked = true)}
+                />
+                <HomeScreen isVisible={phoneStore.isUnlocked} />
+            </div>
         </div>
-    </div>
+    {/if}
 </main>

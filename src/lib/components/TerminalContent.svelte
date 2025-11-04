@@ -1,6 +1,7 @@
 <script lang="ts">
-    import { goto } from "$app/navigation";
     import type { Snippet } from "svelte";
+    import { isMobile as isOnMobile } from "$lib/utils.js";
+    import { viewOrchestrator } from "../../routes/phone.svelte";
 
     interface Props {
         children: Snippet;
@@ -11,19 +12,20 @@
     let { children, title }: Props = $props();
 
     let isClosing = $state(false);
-
     let isMobile = $state(false);
+
     $effect(() => {
-        isMobile = window.matchMedia("(max-width: 768px)").matches;
+        if (isOnMobile()) {
+            isMobile = true;
+        }
     });
 
     function handleClose() {
-        if (isMobile) {
-            isClosing = true;
-            setTimeout(() => {
-                goto("/");
-            }, 500);
-        }
+        isClosing = true;
+        setTimeout(() => {
+            viewOrchestrator.hideDevice = false;
+            isClosing = false;
+        }, 500);
     }
 </script>
 
@@ -59,7 +61,6 @@
                     </button>
                 {:else}
                     <button
-                        onclick={handleClose}
                         class="w-3 h-3 rounded-full bg-mac-close hover:brightness-110 transition-all"
                         aria-label="Close"
                     ></button>
@@ -85,4 +86,3 @@
         </div>
     </div>
 </div>
-
